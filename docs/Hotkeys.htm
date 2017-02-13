@@ -1,7 +1,8 @@
 <!DOCTYPE HTML>
+<meta charset="utf-8">
 <html>
 <head>
-<title>Hotkeys (Mouse, Joystick and Keyboard Shortcuts)</title>
+<title>핫키[Hotkeys] (마우스, 조이스틱 및 키보드 단축키)</title>
 <meta name="description" content="Free utility to create hotkeys, shortcuts, and macros for keyboard, mouse, and joystick. Any combination of keys and buttons can become a hotkey.">
 <meta name="keywords" content="hotkey,hotkeys,hot key,hot keys,shortcut,shortcuts,shortcut key,shortcut keys,keyboard shortcut,keyboard shortcuts,button,buttons,click,press">
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
@@ -11,42 +12,49 @@
 </head>
 <body>
 
-<h1>Hotkeys (Mouse, Joystick and Keyboard Shortcuts)</h1>
+<h1>핫키[Hotkeys] (마우스, 조이스틱 및 키보드 단축키)</h1>
 
 
-<h2>Table of Contents</h2>
+<h2>목차</h2>
 <ul>
-  <li><a href="#Intro">Introduction and Simple Examples</a></li>
-  <li><a href="#Symbols">Table of Hotkey Prefix Symbols (Modifiers)</a></li>
-  <li><a href="#Context">Context-sensitive Hotkeys</a></li>
-  <li><a href="#combo">Custom Combinations</a></li>
-  <li><a href="#Features">Other Features</a></li>
-  <li><a href="#Wheel">Mouse Wheel Hotkeys</a></li>
-  <li><a href="#Remarks">Hotkey Tips and Remarks</a></li>
-  <li><a href="#AltTabDetail">Alt-Tab Hotkeys</a></li>
-  <li><a href="#Function">Function Hotkeys</a></li>
+  <li><a href="#Intro">소개 및 간단한 예제들</a></li>
+  <li><a href="#Symbols">핫키 접두 기호 테이블 (제어자)</a></li>
+  <li><a href="#Context">특정 상황에 사용되는 핫키</a></li>
+  <li><a href="#combo">커스텀 조합</a></li>
+  <li><a href="#Features">다른 기능들</a></li>
+  <li><a href="#Wheel">마우스 휠 핫키</a></li>
+  <li><a href="#Remarks">핫키 팁 및 비고</a></li>
+  <li><a href="#AltTabDetail">알트탭 핫키</a></li>
+  <li><a href="#Function">함수 핫키</a></li>
 </ul>
 
-<h2 id="Intro">Introduction and Simple Examples</h2>
-<p>Hotkeys are sometimes referred to as shortcut keys because of their ability to easily trigger an action (such as launching a program or <a href="misc/Macros.htm">keyboard macro</a>). In the following example, the hotkey Win+N is configured to launch Notepad. The pound sign [#] stands for the Windows key, which is known as a <em>modifier</em>:</p>
+<h2 id="Intro">소개 및 간단한 예제들</h2>
+<p>핫키는 때때로 프로그램이나 <a href="misc/Macros.htm">키보드 매크로</a>를 실행하는 등의 특정 액션을 쉽게 실행시켜준 다는 점에서 단축키로 여겨진다.
+  아래의 예제속에서, 핫키 Win+N은 메모장을 열도록 설정되어있다. # 기호는 <em>제어자</em>로써 윈도우 키를 나타낸다.
 <pre>#n::
 Run Notepad
 return</pre>
-<p>In the final line above,  <code><a href="commands/Return.htm">return</a></code> serves to finish the hotkey. However, if a hotkey needs to execute only a single line, that line can be listed to the right of the double-colon. In other words, the <code>return</code> is implicit:</p>
+<p>위 마지막줄에,  <code><a href="commands/Return.htm">return</a></code>은 이 핫키를 끝내는 기능을 제공한다.
+  하지만, 만약 핫키가 오직 한줄만 실행해도 된다면, 그 라인은 더블 콜론(::)의 오른편에 작성할 수도 있다.
+  다시 말하면, <code><a href="commands/Return.htm">return</a></code>은 함축된다:</p>
 <pre>#n::Run Notepad</pre>
-<p>To use more than one modifier with a hotkey, list them consecutively (the order does not matter). The following example uses <code>^!s</code> to indicate Control+Alt+S:</p>
+<p>하나 이상의 제어자를 핫키에 사용하고 싶을 경우에, 나란히 나열하면된다.(순서는 중요하지 않다)
+  다음의 예제는 Control+Alt+S를 나타내기 위하여 <code>^!s</code>를 사용하였다:</p>
 <pre>^!s::
-<a href="commands/Send.htm">Send</a> Sincerely,{enter}John Smith  <em>; This line sends keystrokes to the active (foremost) window.</em>
+<a href="commands/Send.htm">Send</a> 진심을 담아,{enter}John Smith  <em>; 이 라인은 (가장 위에) 활성화 된 창(윈도우의 창을 의미)에 키 입력을 전송한다.</em>
 return</pre>
-<h3 id="Symbols">You can use the following modifier symbols to define hotkeys:</h3>
+<h3 id="Symbols">여러분은 여러분의 핫키를 정의하기 위하여 다음의 제어자 심볼을 사용할 수 있다:</h3>
 <table class="info">
   <tr>
-    <th style="width:30px">Symbol</th>
-    <th>Description</th>
+    <th style="width:30px">심볼</th>
+    <th>설명</th>
   </tr>
   <tr>
     <td><strong>#</strong></td>
-    <td>Win (Windows logo key). In v1.0.48.01+, for Windows Vista and later, hotkeys that include the Windows key (e.g. #a) will wait for the Windows key to be released before sending any text containing an &quot;L&quot; keystroke. This prevents usages of <a href="commands/Send.htm">Send</a> within such a hotkey from locking the PC. This behavior applies to all sending modes except <a href="commands/Send.htm#SendPlayDetail">SendPlay</a> (which doesn't need it) and <a href="commands/Send.htm#blind">blind mode</a>.</td>
+    <td>Win (윈도우 로고키). In v1.0.48.01+, 윈도우 비스타 이후 제품을 위해서, 윈도우 키를 포함하는 핫키(예: #a)는 &quot;L&quot; 키입력이 포함된 문자열을 보내기 전에
+      윈도우 키가 릴리즈 되는 것을 기다릴 것이다. 이를 통해서 <a href="commands/Send.htm">Send</a>를 사용할 때 컴퓨터가 잠기는 것을 예방할 수 있다.
+      이 행동은 <a href="commands/Send.htm#SendPlayDetail">SendPlay</a> (위 기능이 필요 없는)와 <a href="commands/Send.htm#blind">blind mode</a>
+      를 제외한 모든 전송모드(Sending mode)에서 적용된다.</td>
   </tr>
   <tr>
     <td><strong>!</strong></td>
@@ -62,39 +70,41 @@ return</pre>
   </tr>
   <tr>
     <td><strong>&amp;</strong></td>
-    <td>An ampersand may be used between any two keys or mouse buttons to combine them into a custom hotkey. See <a href="#combo">below</a> for details.</td>
+    <td>두 키보드 또는 마우스 버튼으로 새로운 커스텀 핫키를 만들 때 사용한다. 자세한 사항은 <a href="#combo">below</a>를 참고한다.</td>
   </tr>
   <tr id="LeftRight">
     <td><strong>&lt;</strong></td>
-    <td>Use the left key of the pair. e.g. &lt;!a is the same as !a except that only the left Alt key will trigger it.</td>
+    <td>한쌍으로 이루어진 키 중에 왼쪽키를 사용한다. 예: &lt;!a 는 왼쪽 Alt로만 사용한다는 점을 제외하고는 !a
+      와 동일하다.</td>
   </tr>
   <tr>
     <td><strong>&gt;</strong></td>
-    <td>Use the right key of the pair.</td>
+    <td>한쌍으로 이루어진 키 중에 오른쪽키를 사용한다.</td>
   </tr>
   <tr id="AltGr">
     <td><strong>&lt;^&gt;!</strong></td>
-    <td><p>AltGr (alternate graving). If your keyboard layout has an AltGr key instead of a right-Alt key, this series of symbols can usually be used to stand for AltGr. For example:</p>
-      <pre>&lt;^&gt;!m::MsgBox You pressed AltGr+m.
-&lt;^&lt;!m::MsgBox You pressed LeftControl+LeftAlt+m.</pre>
-      <p>Alternatively, to make AltGr itself into a hotkey, use the following hotkey (without any hotkeys like the above present):</p>
-      <pre>LControl &amp; RAlt::MsgBox You pressed AltGr itself.</pre></td>
+    <td><p>AltGr (유럽이나 아메리카 대륙(미국 표준 QWERTY 자판은 제외)의 키보드 수식 키 중에 하나로, 주로 해당 언어에서 잘 안 쓰이는 문자(주로 악센트가 첨가된 문자나 화폐 기호 등)를 입력하기 위한 용도로 쓰인다. 이 키는 대개 '물리적'으로는 오른쪽 Alt 키가 대신하고 있다.) 만약 여러분의 키보드 레이아웃이 오른쪽 Alt가 아닌 AltGr을 가지고 있다면, 이 심볼이 AltGr을 나타낸다. 예시는 다음과 같다:</p>
+      <pre>&lt;^&gt;!m::MsgBox 당신은 AltGr+m을 눌렀습니다.
+&lt;^&lt;!m::MsgBox 당신은 LeftControl+LeftAlt+m을 눌렀습니다.</pre>
+      <p>대안으로, AltGr 그 자체를 핫키로 만들기 위해서, 위와 같은 단축키없이 다음을 사용한다:</p>
+      <pre>LControl &amp; RAlt::MsgBox 당신은 AltGr을 눌렀습니다.</pre></td>
   </tr>
   <tr id="wildcard">
     <td><strong>*</strong></td>
-    <td><p>Wildcard: Fire the hotkey even if extra modifiers are being held down. This is often used in conjunction with <a href="misc/Remap.htm">remapping</a> keys or buttons. For example:</p>
-      <pre>*#c::Run Calc.exe  <em>; Win+C, Shift+Win+C, Ctrl+Win+C, etc. will all trigger this hotkey.</em>
-*ScrollLock::Run Notepad  <em>; Pressing ScrollLock will trigger this hotkey even when modifier key(s) are down.</em></pre></td>
+    <td><p>와일드카드(포커에서 조커 느낌임): 추가 수식어가 눌릴 경우에도 핫키를 실행시킨다.
+      이 키는 주로 <a href="misc/Remap.htm">리매핑</a> 키나 버튼과 함께 주로 사용된다. 예시:</p>
+      <pre>*#c::Run Calc.exe  <em>; Win+C, Shift+Win+C, Ctrl+Win+C, 등이 모두 이 핫키를 실행시킨다.</em>
+*ScrollLock::Run Notepad  <em>; 제어자 키에서 손을띄더라도 ScrollLock를 누르고 있음으로써, 이 핫키는 실행된다.</em></pre></td>
   </tr>
   <tr id="Tilde">
     <td><strong>~</strong></td>
-    <td><p>When the hotkey fires, its key's native function will not be blocked (hidden from the system). In both of the below examples, the user's click of the mouse button will be sent to the active window:</p>
-      <pre>~RButton::MsgBox You clicked the right mouse button.
-~RButton &amp; C::MsgBox You pressed C while holding down the right mouse button.</pre>
-      <p>Unlike the other prefix symbols, the tilde prefix is allowed to be present on some of a hotkey's <a href="commands/_IfWinActive.htm#variant">variants</a> but absent on others. However, if a tilde is applied to the <a href="#prefix">prefix key</a> of any custom combination which has not been turned off or suspended, it affects the behavior of that prefix key for <em>all</em> combinations.</p>
-      <p>Special hotkeys that are substitutes for <a href="#alttab">alt-tab</a> always ignore the tilde prefix.</p>
-      <p><span class="ver">[v1.1.14+]:</span> If the tilde prefix is applied to a custom modifier key (<a href="#prefix">prefix key</a>) which is also used as its own hotkey, that hotkey will fire when the key is pressed instead of being delayed until the key is released.  For example, the <em>~RButton</em> hotkey above is fired as soon as the button is pressed.  Prior to v1.1.14 (or without the tilde prefix), it was fired when the button was released, but only if the <em>RButton &amp; C</em> combination was not activated.</p>
-      <p>If the tilde prefix is applied only to the custom combination and not the non-combination hotkey, the key's native function will still be blocked. For example, in the script below, holding AppsKey will show the ToolTip and will not trigger a context menu:</p>
+    <td><p>핫키가 실행될 때, 이 키의 고유의 기능은 중단되지 않는다. 아래의 두개의 예시에서, 사용자의 마우스 버튼 클릭은 액티브 윈도우(실행되고 있는 창)으로 전송될 것이다:</p>
+      <pre>~RButton::MsgBox 당신은 마우스 오른쪽 버튼을 클릭했습니다.
+~RButton &amp; C::MsgBox 당신은 마우스 오른쪽 버튼을 누른 상태로 C 를 눌렀습니다.</pre>
+      <p>다른 접두어 심볼들과 다르게, ~ 접두어는 몇 핫키의 <a href="commands/_IfWinActive.htm#variant">변형(중복)</a>에 표시되기도 한다. 그러나 ~ 표시가 종료되지 않았거나, 일시 중지 되지 않은 조합의 <a href="#prefix">접두어</a>에 사용될 경우, 해당 접두어의 <em>모든</em> 키 조합에 영향을 미친다.</p>
+      <p> <a href="#alttab">alt-tab</a>을 대체하는 특별한 핫키들은 언제나 ~ 접두어를 무시한다.</p>
+      <p><span class="ver">[v1.1.14+]:</span> 만약 ~ 단축키가 기존에 핫키로 사용되고 있는 커스텀 키에 적용된다면, 그 핫키는 키를 놓을 때까지 기다려지는 것이 아니라 키를 누를 때 실행될 것이다. 예를들어, 위의 <em>~RButton</em> 핫키는 버튼이 눌리자 마자 실행될 것이다. v1.1.14버전 이전에는 (또는 ~ 접두어가 있기 전), 이 것은 버튼이 띄어졌을때 실행되었었지만, 위의 <em>RButton &amp; C</em> 조합이 활성화 되지 않을 경우에만 가능했다.</p>
+      <p>만약 ~ 접두어가 오직 커스텀 조합에만 적용된다면, 그키 자체의 고유의 기능은 여전히 중단된다. 예를들어 아래의 예시에서, AppsKey를 누르고 있을 경우 ToolTip은 보이나 context menu를 실행시키지는 않을 것이다:</p>
       <pre>AppsKey::ToolTip Press &lt; or &gt; to cycle through windows.
 AppsKey Up::ToolTip
 ~AppsKey &amp; &lt;::Send !+{Esc}
@@ -115,7 +125,7 @@ AppsKey Up::ToolTip
       <pre>*LWin::Send {LControl Down}
 *LWin <strong>Up</strong>::Send {LControl Up}
 </pre>
-      <p>&quot;Up&quot; can also be used with normal hotkeys as in this example: <code>^!r Up::MsgBox You pressed and released Ctrl+Alt+R</code>. It also works with <a href="#combo">combination hotkeys</a> (e.g. <code>F1 &amp; e Up::</code>)</p>      
+      <p>&quot;Up&quot; can also be used with normal hotkeys as in this example: <code>^!r Up::MsgBox You pressed and released Ctrl+Alt+R</code>. It also works with <a href="#combo">combination hotkeys</a> (e.g. <code>F1 &amp; e Up::</code>)</p>
       <p>Limitations: 1) &quot;Up&quot; does not work with <a href="KeyList.htm">joystick buttons</a>; and 2) An &quot;Up&quot; hotkey without a normal/down counterpart hotkey will completely take over that key to prevent it from getting stuck down. One way to prevent this is to add a <a href="#Tilde">tilde prefix</a> (e.g. <code><strong>~</strong>LControl up::</code>)</p>
       <p>On a related note, a technique similar to the above is to make a hotkey into a prefix key. The advantage is that although the hotkey will fire upon release, it will do so only if you did not press any other key while it was held down. For example:</p>
       <pre>LControl &amp; F1::return  <em>; Make left-control a prefix by using it in front of &quot;&amp;&quot; at least once.</em>
