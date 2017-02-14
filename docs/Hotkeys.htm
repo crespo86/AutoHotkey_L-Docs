@@ -101,10 +101,10 @@ return</pre>
     <td><p>핫키가 실행될 때, 이 키의 고유의 기능은 중단되지 않는다. 아래의 두개의 예시에서, 사용자의 마우스 버튼 클릭은 액티브 윈도우(실행되고 있는 창)으로 전송될 것이다:</p>
       <pre>~RButton::MsgBox 당신은 마우스 오른쪽 버튼을 클릭했습니다.
 ~RButton &amp; C::MsgBox 당신은 마우스 오른쪽 버튼을 누른 상태로 C 를 눌렀습니다.</pre>
-      <p>다른 접두어 심볼들과 다르게, ~ 접두어는 몇 핫키의 <a href="commands/_IfWinActive.htm#variant">변형(중복)</a>에 표시되기도 한다. 그러나 ~ 표시가 종료되지 않았거나, 일시 중지 되지 않은 조합의 <a href="#prefix">접두어</a>에 사용될 경우, 해당 접두어의 <em>모든</em> 키 조합에 영향을 미친다.</p>
+      <p>다른 접두어 심볼들과 다르게, ~ 접두어는 몇 핫키의 몇몇 <a href="commands/_IfWinActive.htm#variant">변화</a>를 허용하기도 한다. 그러나 종료되지 않았거나, 일시 중지 되지 않은 조합의 <a href="#prefix">접두어</a>에 사용될 경우, 해당 접두어의 <em>모든</em> 키 조합에 영향을 미친다.</p>
       <p> <a href="#alttab">alt-tab</a>을 대체하는 특별한 핫키들은 언제나 ~ 접두어를 무시한다.</p>
-      <p><span class="ver">[v1.1.14+]:</span> 만약 ~ 단축키가 기존에 핫키로 사용되고 있는 커스텀 키에 적용된다면, 그 핫키는 키를 놓을 때까지 기다려지는 것이 아니라 키를 누를 때 실행될 것이다. 예를들어, 위의 <em>~RButton</em> 핫키는 버튼이 눌리자 마자 실행될 것이다. v1.1.14버전 이전에는 (또는 ~ 접두어가 있기 전), 이 것은 버튼이 띄어졌을때 실행되었었지만, 위의 <em>RButton &amp; C</em> 조합이 활성화 되지 않을 경우에만 가능했다.</p>
-      <p>만약 ~ 접두어가 오직 커스텀 조합에만 적용된다면, 그키 자체의 고유의 기능은 여전히 중단된다. 예를들어 아래의 예시에서, AppsKey를 누르고 있을 경우 ToolTip은 보이나 context menu를 실행시키지는 않을 것이다:</p>
+      <p><span class="ver">[v1.1.14+]:</span> 만약 ~ 단축키가 기존에 핫키로 사용되고 있는 커스텀 키에 적용된다면, 그 핫키는 키를 놓을 때까지 기다려지는 것이 아니라 키를 누를 때 실행될 것이다. 예를들어, 위의 <em>~RButton</em> 핫키는 버튼이 눌리자 마자 실행될 것이다. v1.1.14버전 이전에는 (또는 ~ 접두어가 있기 전), 이 것은 버튼이 놓았을 때 실행되었었지만, 위의 <em>RButton &amp; C</em> 조합이 활성화 되지 않을 경우에만 가능했다.</p>
+      <p>만약 ~ 접두어가 오직 커스텀 조합이며 논 조합 핫키가 아닐 경우에 적용된다면, 그키 자체의 고유의 기능은 여전히 중단된다. 예를들어 아래의 예시에서, AppsKey를 누르고 있을 경우 ToolTip은 보이나 context menu를 실행시키지는 않을 것이다:</p>
       <pre>AppsKey::ToolTip Press &lt; or &gt; to cycle through windows.
 AppsKey Up::ToolTip
 ~AppsKey &amp; &lt;::Send !+{Esc}
@@ -114,14 +114,15 @@ AppsKey Up::ToolTip
   <tr id="prefixdollar">
     <td><strong>$</strong></td>
     <td>
-      <p>This is usually only necessary if the script uses the <a href="commands/Send.htm">Send</a> command to send the keys that comprise the hotkey itself, which might otherwise cause it to trigger itself. The $ prefix forces the <a href="commands/_InstallKeybdHook.htm">keyboard hook</a> to be used to implement this hotkey, which as a side-effect prevents the <a href="commands/Send.htm">Send</a> command from triggering it. The $ prefix is equivalent to having specified <code><a href="commands/_UseHook.htm">#UseHook</a></code> somewhere above the definition of this hotkey.</p>
-      <p>The $ prefix has no effect for mouse hotkeys, since they always use the mouse hook. It also has no effect for hotkeys which already require the keyboard hook, including any keyboard hotkeys with the <a href="#Tilde">tilde (~)</a> or <a href="#wildcard">wildcard (*)</a> modifiers, key-up hotkeys and custom combinations.</p>
-      <p><span class="ver">[v1.1.06+]:</span> <a href="commands/_InputLevel.htm">#InputLevel</a> and <a href="commands/SendLevel.htm">SendLevel</a> provide additional control over which hotkeys and hotstrings are triggered by the Send command.</p>
+      <p>이 접두어는 <a href="commands/Send.htm">Send</a> 커맨드를 통해 그 자체로 실행될 수 있는 핫키들로 구성된 키를 전송하는데에만 중요하게 사용된다. $ 접두어는 <a href="commands/_InstallKeybdHook.htm">keyboard hook</a>이 핫키를 구현하는데 사용되도록 하여, <a href="commands/Send.htm">Send</a> 커맨드를 실행함에 있어 생길 수 있는 부작용을 예방한다. $ 접두어는 이 핫키의 정의 위 어딘가에 <code><a href="commands/_UseHook.htm">#UseHook</a></code>를 지정하는 것과 같다.</p>
+
+      <p>마우스 핫키는 Mouse Hook을 계속 사용하기 때문에 $ 접두어는 마우스 핫키에 영향을 미치지 못한다.이것은 또한 이미 키보드 훅을 요구하거나 <a href="#Tilde">tilde (~)</a> 혹은 <a href="#wildcard">wildcard (*)</a>를 포함하거나 Key-up 핫키 그리고 커스텀 조합을 포함하는 어떠한 키보드 핫키에도 영향을 미치지 못한다.
+      <p><span class="ver">[v1.1.06+]:</span> <a href="commands/_InputLevel.htm">#InputLevel</a>과 <a href="commands/SendLevel.htm">SendLevel</a>은 Send 커맨드를 이용하여 실행되는 핫키나 핫문자열에 관한 추가적인 설정을 제공한다.</p>
     </td>
   </tr>
   <tr id="keyup">
     <td>UP</td>
-    <td><p>The word UP may follow the name of a hotkey to cause the hotkey to fire upon release of the key rather than when the key is pressed down. The following example <a href="misc/Remap.htm">remaps</a> LWin to become LControl:</p>
+    <td><p>UP 단어는 핫키의 이름을 따릅니다. The word UP may follow the name of a hotkey to cause the hotkey to fire upon release of the key rather than when the key is pressed down. The following example <a href="misc/Remap.htm">remaps</a> LWin to become LControl:</p>
       <pre>*LWin::Send {LControl Down}
 *LWin <strong>Up</strong>::Send {LControl Up}
 </pre>
